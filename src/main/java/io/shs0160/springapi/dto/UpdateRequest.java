@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class UpdateRequest {
 
     public String title;
-    public String content;
+    public String contents;
 
 }

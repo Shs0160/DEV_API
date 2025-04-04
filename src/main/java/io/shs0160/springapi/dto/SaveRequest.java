@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SaveRequest {
 
     private String title;
-    private String content;
+    private String contents;
     private String author;
 
 }

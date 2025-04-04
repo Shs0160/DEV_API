@@ -12,23 +12,27 @@ public class Post {
     private Long id;
 
     private String title;
-    private String content;
+    private String contents;
     private String author;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public static Post of(SaveRequest Request) {
+    public static Post of(SaveRequest request) {
+
         Post post = new Post();
-        post.title = Request.getTitle();
-        post.content = Request.getContent();
-        post.author = Request.getAuthor();
+
+        post.title = request.getTitle();
+        post.contents = request.getContents();
+        post.author = request.getAuthor();
+
         return post;
+
     }
 
     public void update(UpdateRequest request) {
         this.title = request.getTitle();
-        this.content = request.getContent();
+        this.contents = request.getContents();
 
         this.updatedAt = LocalDateTime.now();
     }

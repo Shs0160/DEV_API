@@ -32,10 +32,13 @@ public class PostRepository {
     public void remove(Long id) {
         posts.remove(id);
     }
+
     public Post update(Long id, UpdateRequest request) {
         Post findPost = posts.get(id);
-        findPost.setTitle(request.getTitle());
+        findPost.update(request);
         posts.replace(findPost.getId(), findPost);
         return findPost;
     }
+
+
 }
