@@ -23,28 +23,43 @@ public class PostController {
     private final PostRepository postRepository;
 
     @GetMapping("/{postId}")
-    //@ResponseStatus(HttpStatus.OK)
+//    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Post> findById(@PathVariable Long postId) {
-        log.info("Find post by id: {}", postId);
         Post findPost = postRepository.findById(postId);
-        return ResponseEntity.status(HttpStatus.OK).body(findPost);
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(findPost);
+        return ResponseEntity.ok(findPost);
     }
-
 
     @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED) // 201
     public ResponseEntity<Long> save(@RequestBody SaveRequest request) {
-        Post saved = postRepository.save(Post.of(request));
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved.getId());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(
+                        postRepository.save(
+                                Post.of(request)
+                        ).getId()
+                );
     }
 
+    // PATCH
     @PatchMapping("/{postId}")
+//    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Post> update(@PathVariable Long postId, @RequestBody UpdateRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(postRepository.update(postId, request));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(postRepository.update(postId, request));
+
     }
 
 
+    // DELETE
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> delete(@PathVariable Long postId) {
-        return ResponseEntity.ok(postRepository.remove(postId));
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<Void> remove(@PathVariable Long postId) {
+        postRepository.remove(postId);
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+//                .build();
+        return ResponseEntity.noContent()
+                .build();
     }
 }
